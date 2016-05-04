@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="dotsquares" translate="label" sortOrder="10">
+            <label>Dotsquares Extensions</label>
+        </tab>
+        <section id="dotsquares_whatsapp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>WhatsApp Share</label>
+            <tab>dotsquares</tab>
+            <resource>Dotsquares_Whatsapp::dotsquares_whatsapp</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>General</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable/Disble</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable/Disable for WhatsApp Share
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

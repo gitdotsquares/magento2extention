@@ -1,0 +1,7 @@
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block name="dotsquares_whatsapp.whatsapp" ifconfig="dotsquares_whatsapp/general/enable" class="Dotsquares\Whatsapp\Block\Catalog\Product\Whatsapp" after="-" template="product/Share.phtml" />
+        </referenceContainer>
+    </body>
+</layout>

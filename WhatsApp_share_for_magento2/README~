@@ -1,0 +1,45 @@
+
+Extension Title
+	Ds WhatsApp Share
+
+Brief Description
+<p>This Extension allows you to share details of your product on WhatsApp contact list. </p>
+
+<h3>Detail Description</h3>
+<p>Whatsapp Share extension allow you to share product detail on whatsapp contact list. whatsapp share button available on product detail page and it work with all mobile devices having whatsapp Installed. 
+Auto redirect WhatsApp installation page of device when WhatsApp is not installed.
+When user clicks on whatsapp share button on the product detail page it redirect user to the whatsapp contact list then further on you can share that product information in which product name, product description, price and link of that product to your contact list. 
+Admin can easily enable/disable this Module on Product Page. This extension is easy to use and manageable without any technical proficiency. </p>
+
+<h3> Features< /h3>
+<ul>
+	<li>Easy to install and configure.</li>
+	<li>Available on Product Detail Page</li>
+	<li>Works with all mobile devices having whatsapp Installed</li>
+	<li>Easily manage through Admin Area</li>
+<li> You can easily share product information including product name, product description, price and link of that product to your contact list </li>
+	<li> Admin can Enable or Disable this extension on Catalog Page. </li>
+<li>Compatible in Magento 2.0.0 and Magento 2.0.2</li>
+	<li> It’s 100% open source </li>
+	<li>Multi browsers support : IE, FireFox, Safari, Chrome, Opera </li>
+                           	<li> Fully Tested </li>
+                           	<li>No need any technical  knowledge to use this extension</li>
+<li>It’s 100% open source.</li>
+<li>User Friendly, Ultimate functionality with well designed and easy to customize.</li>
+</ul>
+<br />
+
+<h3>Benefits</h3>
+<ul>
+<li>According to magento standard. No changes in core files.</li>
+<li>100% responsive.</li>
+<li>100% open source.</li>
+</ul>
+
+<h3>Support :</h3>
+<p>Mail Us: <a href="mailto:support.extensions@dotsquares.com">support.extensions@dotsquares.com </a></p>
+
+Extension Key :- DsWhatsAppShare
+Also I need version number. It will be the same which you set  in xml file of extension and same as which you will get when you make zip of extension from magento connect.
+
+Version :-  0.0.1
