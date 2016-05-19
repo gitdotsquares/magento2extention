@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+		<link src="Dotsquares_Wholesale::js/jquery-1.10.1.min.js"/>
+		<link src="Dotsquares_Wholesale::js/noconflict.js"/>
+		<css src="Dotsquares_Wholesale/css/wholesale.css"/> 
+		<!-- <link rel="stylesheet" type="text/css" 
+    ifconfig="ds_wholesale/general/jQuery"  src="Ds_Wholesale/css/wholesale.css" /> -->
+	</head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <block name="dotsquares_wholesale.wholesale" ifconfig="dotsquares_wholesale/general/enable" class="Dotsquares\Wholesale\Block\Catalog\Product\Wholesale" before="-" template="product/wholesale.phtml" />
+        </referenceContainer>
+    </body>
+</page>

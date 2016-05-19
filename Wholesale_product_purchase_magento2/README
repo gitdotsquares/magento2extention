@@ -1,0 +1,28 @@
+
+Extension Title
+Wholesale Add to Cart in magento2
+
+Brief Description
+Magento extension for wholesale add to cart on product page 
+
+<h3>Detail Description</h3>
+<p> User can add multiple products choosing different product options on configurable product                                                                                                                       detail page. User can use “Add to Row” button to add multiple products in table that is shown for chosen product options with quantity present above product options elements on configurable product page. User can add all rows of table in cart using “Add to Cart” button in one go. User can delete the specific row in table and manage the quantity for different row in table using “update” button. This module save time of customer and put bulk order of different simple products on configurable product page.</p>
+<h3> Features </h3>
+<ul>
+<li> Easy to installation </li>
+<li> Customer can add multiple configure product’s option using “Add to rows” button in table on configurable product detail  Page. </li>
+<li> Customer can update qty for different configure product’s option added  in  table using  “Update” button. </li>
+<li> Customer can  delete row having product option in table using “remove” button.</li>	
+<li> After adding multiple rows of different product options having  different
+ quantity, Customer can add multiple configure product’s option with own quantity add to cart on single go. </li>
+<li>If customer not want to multiple product option then he can directly add to cart using configure  product options</li>
+	<li> Compatible with all browsers.</li>
+</ul>	
+<h3>Installation</h3>
+<p> Go to magento connect manager and paste the extension key and click install. Please refresh the cache and re-login in the admin backend after installing the extension. </p>
+<h3>Support :</h3>
+<b>Mail Us: <a href="mailto:support.extensions@dotsquares.com">support.extensions@dotsquares.com </a></b>
+Extension Key
+        Dotsquares_wholesaleaddtocart
+Version: - 1.0.0
+

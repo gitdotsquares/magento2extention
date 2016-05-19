@@ -1,0 +1,234 @@
+
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$type = $product->getTypeId(); 
+
+ if($type == 'configurable'){ 
+ $productid = $product->getId();
+ 
+ ?>
+<div class="input_field_id">
+	<input type="hidden" name="ajax_counter" value="">
+	<input type="hidden" name="default_qty" value="1">
+	
+	<p><?php 
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$productsession = $objectManager->get('Magento\Catalog\Model\Session');
+		$customary = $productsession->getMyValue();
+		
+		//get current category
+		//var_dump($product->getData());
+		//die();
+		
+		if(!empty($customary)){
+			if(!empty($customary[$productid])){
+				if(array_key_exists($productid, $customary)){
+					unset($customary[$productid]);
+					$productsession->setMyValue($customary);
+				}
+			}
+		}		
+		
+		//echo $productid;
+		//print_r($customary);
+		//echo "heloo";
+		
+		?>
+		</p>
+		
+		<div class="orderdeatil" style="display:none;"> 
+			<table class="result">
+				<thead>
+					<tr>
+							<?php 
+							$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+							$currentproduct = $objectManager->create('Magento\Catalog\Model\Product')->load($productid);
+							$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+							$collection = $productCollection->create()->addAttributeToFilter('entity_id', array('in' => $productid))->load();
+							foreach($collection as $product){
+								$produto_cor_options = $currentproduct->getTypeInstance(true)->getConfigurableAttributesAsArray($currentproduct);
+								foreach($produto_cor_options as $options){
+									$atributo_cor = $options['attribute_code'];
+												
+									echo '<td>' . $atributo_cor . '</td>';
+								}
+							} ?>
+						<td>Qty</td>
+						<td>Remove</td>
+					</tr>	
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>				
+		<h1 class="errormsgblock" style="display: none;"><?php echo 'Please select product options:'; ?></h1>
+		<p style="display: none;" class="updatemsgblock"><?php echo 'Product Update.' ; ?></p>
+		<p style="display:none;" class="deletemsgblock"><?php echo 'Product Deleted.'; ?></p>
+		<span style="display:none;" class="selcetoption validation-advice1"><?php echo 'This is a required field.'; ?></span>
+		<span style="display:none;" class="selecterror"><?php echo 'This is a required field.'; ?></span>
+		<div class ="action buttonimg">
+			<span style="display:none;" id='ajax_loader1'>
+				<img class="loaderimgds" src="<?php echo $block->getViewFileUrl('Dotsquares_Wholesale::images/wholesale/loader.gif');?>" />
+			</span>
+			<p class="action primary tocart addtorow addtoproducttable"><?php echo 'Add To Row' ; ?></p>
+		</div>
+</div>
+		
+<script>
+	
+	var isAjax = 1;
+	var defaultqty = 1;
+	jQuery(document).ready(function(){
+		/**********************************reset table******************************/
+			var test = setInterval(function(){
+				if(jQuery('.message-success.success.message').css('display') == 'block'){ 
+					jQuery('.orderdeatil').hide('slow'); 
+					jQuery('.message-success.success.message').hide();
+					clearInterval(test);
+					window.location.reload();
+				} 
+			},5000)
+		
+		
+		
+		/**********************************end reset table******************************/
+		
+				/********************* save data  in table *********************/
+				jQuery(document).on("click",'.addtorow',function(e)
+				{
+					
+					
+						
+					
+					var main_el = jQuery(this).parents("#product-options-wrapper");
+					jQuery("#product-options-wrapper").find("select").each(function(){
+						jQuery(this).find("option:eq(0)").val("");
+					});
+					//alert(jQuery(this).val());
+					//if(document.productview.qty1212.value == "") 
+					var empty_count = 0;
+					jQuery("#product-options-wrapper").find("select").each(function(){
+						if(jQuery(this).val()==''){
+							//alert(empty_count);
+							jQuery(this).next().show();
+							//jQuery('.tocart').addClass('btn-success1');
+							jQuery('.selecterror').show();
+							//jQuery('.super-attribute-select').removeClass('mage-error');
+							empty_count = empty_count+1;
+							//alert("hello");
+							//alert(empty_count);
+						}
+						else{
+							jQuery('.selecterror').hide();
+						}
+					});
+					if(empty_count>0) 
+					{
+						return false;					
+					}
+						else
+					{						
+						isAjax = isAjax+1;
+						var form_data = jQuery("#product_addtocart_form").serialize();	
+						jQuery('input[name="ajax_counter"]').val(isAjax);
+						jQuery('input[name="default_qty"]').val(defaultqty);
+						jQuery('#ajax_loader1').show();
+						jQuery.ajax({
+							url: "<?php echo $this->getUrl('wholesale/index/index')?>",
+							type: 'POST', 
+							data : form_data,
+							datatype: "json",
+							//data :{'isAjax' : isAjax },
+							success: function(data) 
+							{
+								var product_data = jQuery.parseJSON(data),
+								curr_key = product_data.product_key;
+								if(product_data.error_msg){
+									alert(product_data.error_msg);
+								}
+								else if(jQuery('.result tbody tr.'+curr_key).length==0){
+									var table_header = '<tr class="'+curr_key+'">'+product_data.product_content+'</tr>';
+									jQuery('.result tbody').append(table_header);
+								}
+								else{
+									jQuery('.result tbody tr.'+curr_key).html(product_data.product_content);
+								}
+								jQuery('#ajax_loader1').hide();
+								jQuery('.selcetoption').hide();
+								jQuery('.selecterror').hide();
+								jQuery('.super-attribute-select').removeClass('mage-error');
+								jQuery('.mage-error').hide();
+								jQuery('.orderdeatil').show();
+								jQuery(".result").show();
+								jQuery("#product-addtocart-button").insertAfter("#product_addtocart_form .orderdeatil");
+							}
+						});
+						return false;
+					}	
+				});
+				
+				jQuery(".input_field_id").insertAfter("#product_addtocart_form #related-products-field");
+				//jQuery("#product-addtocart-button").insertAfter("#product_addtocart_form .orderdeatil");
+				jQuery(".buttonimg").insertAfter("#product_addtocart_form .field.qty");
+				jQuery(".selecterror").insertAfter("#product_addtocart_form .super-attribute-select");
+				
+				
+				
+			/********************* end save  script *********************/	
+			/********************* start delete  script *********************/	
+		
+			jQuery(document).on("click",'.removebu',function(e)
+			{
+				var del_item = jQuery(this);
+				jQuery.ajax({
+					url: "<?php echo $this->getUrl('wholesale/deleted/deleted')?>",
+					type: 'POST', 
+					data : del_item.val(),
+					data :{'remove' : del_item.attr("id") },		
+					success: function(data){
+						if(data=='complete'){
+							del_item.parents("tr").remove();
+							//alert("Deleted");
+							jQuery(".deletemsgblock").fadeIn(500);
+							jQuery(".deletemsgblock").delay(3200).fadeOut(500);
+							if(jQuery(".result tbody").children().length == 0){
+								jQuery(".result").delay(3200).hide();
+								jQuery("#product-addtocart-button").insertAfter("#product_addtocart_form .buttonimg");
+								//alert(jQuery(".result tbody").children().length);
+							}
+							
+						}
+						
+					}
+				});
+			});
+			/********************* end delete  script *********************/
+			/********************* start update  script *********************/	
+			jQuery(document).on("click",'.updateqty',function(e)
+			{
+				var new_qty = jQuery(this).parent().find("input").val()
+					update_fld = jQuery(this).attr("id");
+				jQuery.ajax({
+					url: "<?php echo $this->getUrl('wholesale/update/update')?>",
+					type: 'POST', 
+					datatype: "json",
+					data :{'update' : new_qty,'update_fld': update_fld },						
+					success: function(data){
+						var product_data = jQuery.parseJSON(data);
+						if(product_data.error_msg)
+						{
+							alert(product_data.error_msg);
+						}
+						else{
+							jQuery(".updatemsgblock").fadeIn(500);
+							jQuery(".updatemsgblock").delay(3200).fadeOut(500);
+						
+						}
+					}
+				});
+			});
+			 
+			/*****************  end update  script ****************/
+	});
+</script>
+<?php } ?>
